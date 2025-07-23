@@ -5,6 +5,7 @@ function repartir() {
     let tablero = document.getElementById("tablero");
     tablero.innerHTML = "";
     const TOTAL_CARTAS = 10;
+    cartas = []; 
     for (let i = 0; i < TOTAL_CARTAS; i++) {
 
         let carta = document.createElement("img");
@@ -26,23 +27,29 @@ function verificar() {
         window.alert("Primero debes repartir las cartas");
     }
     else {
-       //iniciar los contadores en 0
+        //iniciar los contadores en 0
         contadores = new Array(13).fill(0);
         //recorrer la lista de las cartas 
-         for (let i = 0; i < cartas.length; i++) {
-        let posicion = cartas[i] % 13;
-        if (posicion === 0) {
-            posicion = 12
-        }
-        else{
-            posicion--;
-        }
+        for (let i = 0; i < cartas.length; i++) {
+            let posicion = cartas[i] % 13;
+            if (posicion === 0) {
+                posicion = 12
+            }
+            else {
+                posicion--;
+            }
             contadores[posicion]++;
         }
-        nombreCartas=["As","Dos","Tres","Cuatro","Cinco","Seis","Siete","Ocho","Nueve","Diez","Jack","Queen","King"];
+        nombreCartas = ["As", "Dos", "Tres", "Cuatro", "Cinco", "Seis", "Siete", "Ocho", "Nueve", "Diez", "Jack", "Queen", "King"];
         //recorrer los contadores 
-        for(let i=0; i < contadores.length; i++) {
-            window.alert("Hay "+contadores[i]+" cartas de "+nombreCartas[i]);
+        let message = "Se encontraron los siguientes grupos:\n";
+        grupos = ["Vacío", "Non", "Par", "Terna", "Cuarta", "Quinta", "Sexta", "Séptima", "Octava", "Novena", "Décima"]
+        for (let i = 0; i < contadores.length; i++) {
+            if (contadores[i] >= 2) {
+                message += grupos[contadores[i]] + " de " + nombreCartas[i] + "\n";
+            }
+           
         }
+        window.alert(message);
     }
 }
